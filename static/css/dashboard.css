@@ -1,0 +1,494 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b0d10;
+    color: #e8eaed;
+    min-height: 100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 240px;
+    height: 100vh;
+
+    background: #111419;
+    border-right: 1px solid #24282e;
+
+    padding: 28px 18px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    line-height: 1.3;
+
+    margin-bottom: 45px;
+}
+
+.logo:first-letter {
+    font-size: 28px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #9298a1;
+
+    padding: 13px 14px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+nav a:hover {
+    background: #191d22;
+    color: #ffffff;
+}
+
+nav a.active {
+    background: #1d2228;
+    color: #ffffff;
+
+    border-left: 3px solid #ffffff;
+}
+
+
+/* MAIN CONTENT */
+
+.main-content {
+    margin-left: 240px;
+
+    padding: 35px 42px;
+
+    min-height: 100vh;
+}
+
+
+/* HEADER */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 35px;
+}
+
+.eyebrow {
+    color: #7f8792;
+
+    font-size: 11px;
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 28px;
+
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #858b94;
+
+    font-size: 14px;
+}
+
+.system-status {
+    border: 1px solid #293038;
+
+    padding: 9px 14px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    color: #b8bec6;
+}
+
+.status-dot {
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #6ee7a0;
+
+    margin-right: 7px;
+}
+
+
+/* STAT CARDS */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    background: #111419;
+
+    border: 1px solid #24282e;
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.stat-card span {
+    color: #858b94;
+
+    font-size: 12px;
+}
+
+.stat-card strong {
+    font-size: 30px;
+}
+
+.stat-card.normal strong {
+    color: #6ee7a0;
+}
+
+.stat-card.suspicious strong {
+    color: #f4c96b;
+}
+
+.stat-card.malicious strong {
+    color: #ff6b6b;
+}
+
+
+/* PANEL */
+
+.panel {
+    background: #111419;
+
+    border: 1px solid #24282e;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.panel-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 23px 25px;
+
+    border-bottom: 1px solid #24282e;
+}
+
+.panel-header h2 {
+    font-size: 16px;
+
+    margin-bottom: 6px;
+}
+
+.panel-header p {
+    color: #777e87;
+
+    font-size: 12px;
+}
+
+.panel-header button {
+    background: #e8eaed;
+
+    border: none;
+
+    color: #111419;
+
+    padding: 9px 14px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.panel-header button:hover {
+    opacity: 0.85;
+}
+
+
+/* TABLE */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+
+    color: #686f78;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    padding: 15px 25px;
+
+    border-bottom: 1px solid #24282e;
+}
+
+td {
+    padding: 17px 25px;
+
+    font-size: 12px;
+
+    color: #b9bec5;
+
+    border-bottom: 1px solid #1c2025;
+}
+
+tr:hover {
+    background: #15191e;
+}
+
+
+/* THREAT BADGES */
+
+.badge {
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 4px;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 0.5px;
+}
+
+.normal-badge {
+    color: #6ee7a0;
+
+    background: #14241c;
+}
+
+.suspicious-badge {
+    color: #f4c96b;
+
+    background: #282317;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .main-content {
+        margin-left: 190px;
+
+        padding: 25px;
+    }
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .sidebar {
+        position: static;
+
+        width: 100%;
+
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+
+        gap: 18px;
+    }
+}
+.malicious-badge {
+    color: #ff6b6b;
+    background: #2a1717;
+}
+.threat-chart {
+    padding: 25px;
+}
+
+.chart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #24282e;
+
+    color: #9ba1a9;
+    font-size: 13px;
+}
+
+.chart-row strong {
+    color: #e8eaed;
+    font-size: 16px;
+}
+.threat-chart {
+    padding: 25px;
+}
+
+.threat-meter {
+    display: flex;
+    height: 18px;
+    width: 100%;
+    background: #20252b;
+    border-radius: 9px;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+
+.meter-normal {
+    width: 30%;
+    background: #6ee7a0;
+}
+
+.meter-suspicious {
+    width: 70%;
+    background: #f4c96b;
+}
+
+.meter-malicious {
+    width: 0%;
+    background: #ff6b6b;
+}
+
+.threat-legend {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #9ba1a9;
+    font-size: 12px;
+}
+
+.legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.normal-dot {
+    background: #6ee7a0;
+}
+
+.suspicious-dot {
+    background: #f4c96b;
+}
+
+.malicious-dot {
+    background: #ff6b6b;
+}
+.investigation-panel {
+    margin-top: 25px;
+}
+
+.investigation-content {
+    padding: 40px 25px;
+}
+
+.empty-investigation {
+    text-align: center;
+    padding: 30px;
+}
+
+.investigation-icon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.empty-investigation h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.empty-investigation p {
+    color: #777e87;
+    font-size: 12px;
+    max-width: 450px;
+    margin: auto;
+    line-height: 1.6;
+}
+.event-row {
+    cursor: pointer;
+}
+
+.event-row:hover {
+    background: #191e24;
+}

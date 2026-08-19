@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Digital Forensics</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🛡️
+            <span>AI Digital<br>Forensics</span>
+        </div>
+
+        <nav>
+            <a href="/" class="active">Dashboard</a>
+            <a href="#">Investigations</a>
+            <a href="#">Evidence</a>
+            <a href="#">Reports</a>
+        </nav>
+
+    </div>
+
+
+    <main class="main-content">
+
+        <header>
+            <div>
+                <p class="eyebrow">SECURITY OPERATIONS</p>
+                <h1>Threat Investigation Dashboard</h1>
+                <p class="subtitle">
+                    AI-powered digital forensics and threat analysis
+                </p>
+            </div>
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+                SYSTEM ONLINE
+            </div>
+        </header>
+
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <span>Total Events</span>
+                <strong>10</strong>
+            </div>
+
+            <div class="stat-card">
+    <span>Total Events</span>
+    <strong>{{ total_events }}</strong>
+</div>
+
+<div class="stat-card normal">
+    <span>Normal</span>
+    <strong>{{ normal_count }}</strong>
+</div>
+
+<div class="stat-card suspicious">
+    <span>Suspicious</span>
+    <strong>{{ suspicious_count }}</strong>
+</div>
+
+<div class="stat-card malicious">
+    <span>Malicious</span>
+    <strong>{{ malicious_count }}</strong>
+</div>
+
+        </section>
+        <section class="chart-panel">
+
+    <div class="panel-header">
+        <div>
+            <h2>Threat Distribution</h2>
+            <p>Classification of analyzed security events</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+     <div class="threat-chart">
+
+    <div class="threat-meter">
+
+        <div class="meter-normal"></div>
+
+        <div class="meter-suspicious"></div>
+
+        <div class="meter-malicious"></div>
+
+    </div>
+
+
+    <div class="threat-legend">
+
+        <div class="legend-item">
+            <span class="legend-dot normal-dot"></span>
+            Normal — {{ normal_count }}
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot suspicious-dot"></span>
+            Suspicious — {{ suspicious_count }}
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot malicious-dot"></span>
+            Malicious — {{ malicious_count }}
+        </div>
+
+    </div>
+
+</div>
+   </div>
+
+</section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Recent Security Events</h2>
+                    <p>Latest activity analyzed by the investigation engine</p>
+                </div>
+
+                <button>View Investigation</button>
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>TIME</th>
+                            <th>USER</th>
+                            <th>SOURCE IP</th>
+                            <th>EVENT</th>
+                            <th>THREAT</th>
+                            <th>CONFIDENCE</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for event in events %}
+
+<tr>
+    <td>{{ event.timestamp }}</td>
+    <td>{{ event.username }}</td>
+    <td>{{ event.source_ip }}</td>
+    <td>{{ event.event_type }}</td>
+
+    <td>
+        {% if event.final_threat == "NORMAL" %}
+            <span class="badge normal-badge">NORMAL</span>
+
+        {% elif event.final_threat == "SUSPICIOUS" %}
+            <span class="badge suspicious-badge">SUSPICIOUS</span>
+
+        {% else %}
+            <span class="badge malicious-badge">MALICIOUS</span>
+        {% endif %}
+    </td>
+
+    <td>{{ "%.2f"|format(event.ai_confidence) }}%</td>
+</tr>
+
+{% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+        <section class="panel investigation-panel">
+
+    <div class="panel-header">
+
+        <div>
+            <h2>Investigation Details</h2>
+            <p>Select an event to inspect its forensic information</p>
+        </div>
+
+    </div>
+
+    <div class="investigation-content">
+
+        <div class="empty-investigation">
+
+            <div class="investigation-icon">
+                🔎
+            </div>
+
+            <h3>No Event Selected</h3>
+
+            <p>
+                Select a security event from the table
+                to view detailed investigation information.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>
