@@ -5,8 +5,8 @@ CSV_PATH = "dataset/security_logs.csv"
 MODEL_PATH = "models/threat_classifier.pkl"
 
 
-def load_data():
-    logs = pd.read_csv(CSV_PATH)
+def load_data(csv_path=CSV_PATH):
+    logs = pd.read_csv(csv_path)
     model = joblib.load(MODEL_PATH)
 
     return logs, model

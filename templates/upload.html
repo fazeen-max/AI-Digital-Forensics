@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Evidence Upload | AI Digital Forensics</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <header class="topbar">
+
+            <div>
+                <h1>AI Digital Forensics</h1>
+                <p>Evidence Analysis</p>
+            </div>
+
+            <a href="/" class="back-link">
+                Dashboard
+            </a>
+
+        </header>
+
+
+        <main>
+
+            <section class="panel upload-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>Upload Security Evidence</h2>
+
+                        <p>
+                            Upload a security log CSV file for AI-powered
+                            forensic analysis.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <form
+                    action="/analyze"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="upload-form"
+                >
+
+                    <label for="file">
+                        Security Log File
+                    </label>
+
+                    <input
+                        type="file"
+                        id="file"
+                        name="file"
+                        accept=".csv"
+                        required
+                    >
+
+                    <p class="upload-help">
+                        Supported format: CSV
+                    </p>
+
+                    <button type="submit" class="upload-button">
+                        Analyze Evidence
+                    </button>
+
+                </form>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

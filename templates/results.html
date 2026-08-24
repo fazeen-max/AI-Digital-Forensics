@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Investigation Results | AI Digital Forensics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <header class="topbar">
+
+            <div>
+                <h1>AI Digital Forensics</h1>
+                <p>Investigation Results</p>
+            </div>
+
+            <a href="/upload" class="back-link">
+                New Analysis
+            </a>
+
+        </header>
+
+
+        <main>
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <span>Total Events</span>
+                    <strong>{{ total_events }}</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Normal</span>
+                    <strong>{{ normal_count }}</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Suspicious</span>
+                    <strong>{{ suspicious_count }}</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Malicious</span>
+                    <strong>{{ malicious_count }}</strong>
+                </div>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>Investigation Summary</h2>
+
+                        <p>
+                            AI-powered analysis of uploaded security evidence.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="investigation-summary">
+
+                    <p>
+                        Analysis completed successfully.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>Detailed Results</h2>
+
+                        <p>
+                            Individual security events identified during analysis.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>User</th>
+                                <th>Source IP</th>
+                                <th>Event</th>
+                                <th>Threat</th>
+                                <th>Confidence</th>
+                                <th>Reason</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for event in events %}
+
+                            <tr>
+
+                                <td>{{ event.timestamp }}</td>
+
+                                <td>{{ event.username }}</td>
+
+                                <td>{{ event.source_ip }}</td>
+
+                                <td>{{ event.event_type }}</td>
+
+                                <td>{{ event.final_threat }}</td>
+
+                                <td>
+                                    {{ "%.2f"|format(event.ai_confidence) }}%
+                                </td>
+
+                                <td>{{ event.forensic_reason }}</td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
