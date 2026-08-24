@@ -1,4 +1,6 @@
 from asyncio import events
+import json
+from datetime import datetime
 
 from flask import Flask, render_template,request,redirect, url_for
 import pandas as pd
@@ -40,6 +42,54 @@ def dashboard():
 @app.route("/upload")
 def upload_page():
     return render_template("upload.html")
+
+
+def save_investigation_history(
+    filename,
+    total_events,
+    normal_count,
+    suspicious_count,
+    malicious_count
+):
+
+    history_file = os.path.join(
+        "history",
+        "investigations.json"
+    )
+
+    with open(history_file, "r", encoding="utf-8") as file:
+        history = json.load(file)
+
+    investigation = {
+        "filename": filename,
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total_events": total_events,
+        "normal": normal_count,
+        "suspicious": suspicious_count,
+        "malicious": malicious_count
+    }
+
+    history.append(investigation)
+
+    with open(history_file, "w", encoding="utf-8") as file:
+        json.dump(history, file, indent=4)
+
+
+@app.route("/history")
+def history_page():
+
+    history_file = os.path.join(
+        "history",
+        "investigations.json"
+    )
+
+    with open(history_file, "r", encoding="utf-8") as file:
+        history = json.load(file)
+
+    return render_template(
+        "history.html",
+        history=history
+    )
 @app.route("/analyze", methods=["POST"])
 def analyze_upload():
 
@@ -98,6 +148,13 @@ def analyze_upload():
             for event in event_records
             if event["final_threat"] == "MALICIOUS"
         )
+        save_investigation_history(
+    uploaded_file.filename,
+    len(event_records),
+    normal_count,
+    suspicious_count,
+    malicious_count
+)
 
         return render_template(
             "results.html",

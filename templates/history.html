@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Investigation History | AI Digital Forensics</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🛡️
+            <span>AI Digital<br>Forensics</span>
+        </div>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/history" class="active">Investigations</a>
+            <a href="/upload">Evidence</a>
+            <a href="#">Reports</a>
+        </nav>
+
+    </div>
+
+
+    <main class="main-content">
+
+        <header>
+
+            <div>
+                <p class="eyebrow">SECURITY OPERATIONS</p>
+
+                <h1>Investigation History</h1>
+
+                <p class="subtitle">
+                    Previous AI-powered forensic investigations
+                </p>
+            </div>
+
+            <a href="/upload" class="upload-button">
+                New Analysis
+            </a>
+
+        </header>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Previous Investigations</h2>
+
+                    <p>
+                        Review previously analyzed security evidence.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Evidence File</th>
+                            <th>Total Events</th>
+                            <th>Normal</th>
+                            <th>Suspicious</th>
+                            <th>Malicious</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for investigation in history %}
+
+                        <tr>
+
+                            <td>{{ investigation.date }}</td>
+
+                            <td>{{ investigation.filename }}</td>
+
+                            <td>{{ investigation.total_events }}</td>
+
+                            <td>{{ investigation.normal }}</td>
+
+                            <td>{{ investigation.suspicious }}</td>
+
+                            <td>{{ investigation.malicious }}</td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="6">
+                                No investigations recorded yet.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
