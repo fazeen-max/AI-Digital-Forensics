@@ -521,3 +521,60 @@ tr:hover {
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
 }
+/* Investigation Details */
+
+.investigation-content {
+    padding: 24px;
+}
+
+.investigation-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.investigation-details h3 {
+    grid-column: 1 / -1;
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    padding: 18px;
+
+    background: #0d1116;
+    border: 1px solid #303740;
+    border-radius: 10px;
+}
+
+.detail-row span {
+    color: #8d98a5;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.detail-row strong {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.event-row {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.event-row:hover {
+    background: #171d24;
+    transform: translateX(3px);
+}
+
+.event-row.selected-event {
+    background: #1c232b;
+    box-shadow: inset 3px 0 0 #ffffff;
+}

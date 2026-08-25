@@ -152,6 +152,7 @@
                             <th>EVENT</th>
                             <th>THREAT</th>
                             <th>CONFIDENCE</th>
+<th>FORENSIC REASON</th>
                         </tr>
                     </thead>
 
@@ -178,6 +179,9 @@
     </td>
 
     <td>{{ "%.2f"|format(event.ai_confidence) }}%</td>
+    <td class="forensic-reason">
+    {{ event.forensic_reasons }}
+</td>
 </tr>
 
 {% endfor %}

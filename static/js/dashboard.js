@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const eventType = cells[3].textContent.trim();
             const threat = cells[4].textContent.trim();
             const confidence = cells[5].textContent.trim();
+            const forensicReason = cells[6].textContent.trim();
 
             panel.innerHTML = `
                 <div class="investigation-details">
@@ -32,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p><strong>Threat:</strong> ${threat}</p>
 
                     <p><strong>AI Confidence:</strong> ${confidence}</p>
+
+                    <p><strong>Forensic Reason:</strong> ${forensicReason}</p>
 
                 </div>
             `;
