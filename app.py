@@ -1,8 +1,20 @@
+from io import BytesIO
+
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    Table,
+    TableStyle
+)
 from asyncio import events
 import json
 from datetime import datetime
 
-from flask import Flask, render_template,request,redirect, url_for
+from flask import Flask, render_template,request,redirect, url_for, session, send_file
 import pandas as pd
 import os
 import sys
@@ -10,6 +22,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "analysi
 from analysis.investigation_engine import load_data, analyze_events
 
 app = Flask(__name__)
+app.secret_key = "ai-digital-forensics-secret-key"
 
 
 @app.route("/")
@@ -90,6 +103,148 @@ def history_page():
         "history.html",
         history=history
     )
+@app.route("/report")
+def report_page():
+
+    report_data = session.get("report_data")
+
+    if not report_data:
+        return "No investigation report available. Please analyze evidence first."
+
+    events = report_data["events"]
+
+    normal_count = sum(
+        1 for event in events
+        if event["final_threat"] == "NORMAL"
+    )
+
+    suspicious_count = sum(
+        1 for event in events
+        if event["final_threat"] == "SUSPICIOUS"
+    )
+
+    malicious_count = sum(
+        1 for event in events
+        if event["final_threat"] == "MALICIOUS"
+    )
+
+    buffer = BytesIO()
+
+    document = SimpleDocTemplate(
+        buffer,
+        pagesize=A4,
+        rightMargin=30,
+        leftMargin=30,
+        topMargin=30,
+        bottomMargin=30
+    )
+
+    styles = getSampleStyleSheet()
+
+    story = []
+
+    story.append(
+        Paragraph(
+            "AI DIGITAL FORENSICS",
+            styles["Title"]
+        )
+    )
+
+    story.append(
+        Paragraph(
+            "Investigation Report",
+            styles["Heading2"]
+        )
+    )
+
+    story.append(Spacer(1, 15))
+
+    summary_data = [
+        ["Evidence File", report_data["filename"]],
+        ["Total Events", str(len(events))],
+        ["Normal", str(normal_count)],
+        ["Suspicious", str(suspicious_count)],
+        ["Malicious", str(malicious_count)]
+    ]
+
+    summary_table = Table(
+        summary_data,
+        colWidths=[140, 350]
+    )
+
+    summary_table.setStyle(
+        TableStyle([
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+            ("BACKGROUND", (0, 0), (0, -1), colors.lightgrey),
+            ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
+            ("PADDING", (0, 0), (-1, -1), 6)
+        ])
+    )
+
+    story.append(summary_table)
+
+    story.append(Spacer(1, 20))
+
+    story.append(
+        Paragraph(
+            "Detailed Investigation Findings",
+            styles["Heading2"]
+        )
+    )
+
+    story.append(Spacer(1, 10))
+
+    table_data = [
+        [
+            "Time",
+            "User",
+            "IP",
+            "Event",
+            "Threat",
+            "Confidence"
+        ]
+    ]
+
+    for event in events:
+
+        table_data.append([
+            str(event.get("timestamp", "")),
+            str(event.get("username", "")),
+            str(event.get("source_ip", "")),
+            str(event.get("event_type", "")),
+            str(event.get("final_threat", "")),
+            f'{event.get("ai_confidence", 0):.2f}%'
+        ])
+
+    findings_table = Table(
+        table_data,
+        repeatRows=1,
+        colWidths=[70, 60, 75, 75, 70, 65]
+    )
+
+    findings_table.setStyle(
+        TableStyle([
+            ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
+            ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 7),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("PADDING", (0, 0), (-1, -1), 4)
+        ])
+    )
+
+    story.append(findings_table)
+
+    document.build(story)
+
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        as_attachment=True,
+        download_name="forensic_investigation_report.pdf",
+        mimetype="application/pdf"
+    )
 @app.route("/analyze", methods=["POST"])
 def analyze_upload():
 
@@ -130,6 +285,10 @@ def analyze_upload():
         events = analyze_events(logs, model)
 
         event_records = events.to_dict(orient="records")
+        session["report_data"] = {
+    "filename": uploaded_file.filename,
+    "events": event_records
+}
 
         normal_count = sum(
             1

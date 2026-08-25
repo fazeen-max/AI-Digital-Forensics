@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Forensic Investigation Report</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="main-content">
+
+        <header>
+            <div>
+                <p class="eyebrow">DIGITAL FORENSICS</p>
+
+                <h1>Investigation Report</h1>
+
+                <p class="subtitle">
+                    AI-powered security investigation report
+                </p>
+            </div>
+        </header>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Investigation Summary</h2>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>Evidence File</span>
+                    <strong>{{ filename }}</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Events</span>
+                    <strong>{{ total_events }}</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Normal</span>
+                    <strong>{{ normal_count }}</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Suspicious</span>
+                    <strong>{{ suspicious_count }}</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Malicious</span>
+                    <strong>{{ malicious_count }}</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Detailed Findings</h2>
+
+                    <p>
+                        Events identified during the investigation.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Source IP</th>
+                            <th>Event</th>
+                            <th>AI Prediction</th>
+                            <th>Final Threat</th>
+                            <th>Confidence</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for event in events %}
+
+                        <tr>
+
+                            <td>{{ event.timestamp }}</td>
+
+                            <td>{{ event.username }}</td>
+
+                            <td>{{ event.source_ip }}</td>
+
+                            <td>{{ event.event_type }}</td>
+
+                            <td>{{ event.ai_prediction }}</td>
+
+                            <td>{{ event.final_threat }}</td>
+
+                            <td>
+                                {{ "%.2f"|format(event.ai_confidence) }}%
+                            </td>
+
+                            <td>{{ event.forensic_reasons }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
