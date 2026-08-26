@@ -78,5 +78,13 @@
         "normal": 3,
         "suspicious": 7,
         "malicious": 0
+    },
+    {
+        "filename": "security_logs.csv",
+        "date": "2026-08-25 19:58:05",
+        "total_events": 10,
+        "normal": 3,
+        "suspicious": 7,
+        "malicious": 0
     }
 ]

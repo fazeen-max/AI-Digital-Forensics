@@ -70,7 +70,7 @@
 
             <div class="table-container">
 
-                <table>
+                <table class="history-table">
 
                     <thead>
                         <tr>
@@ -85,35 +85,47 @@
 
                     <tbody>
 
-                        {% for investigation in history %}
+    {% for investigation in history %}
 
-                        <tr>
+    <tr>
 
-                            <td>{{ investigation.date }}</td>
+        <td class="history-date">
+            {{ investigation.date }}
+        </td>
 
-                            <td>{{ investigation.filename }}</td>
+        <td class="history-file">
+            {{ investigation.filename }}
+        </td>
 
-                            <td>{{ investigation.total_events }}</td>
+        <td class="history-count">
+            {{ investigation.total_events }}
+        </td>
 
-                            <td>{{ investigation.normal }}</td>
+        <td class="history-normal">
+            {{ investigation.normal }}
+        </td>
 
-                            <td>{{ investigation.suspicious }}</td>
+        <td class="history-suspicious">
+            {{ investigation.suspicious }}
+        </td>
 
-                            <td>{{ investigation.malicious }}</td>
+        <td class="history-malicious">
+            {{ investigation.malicious }}
+        </td>
 
-                        </tr>
+    </tr>
 
-                        {% else %}
+    {% else %}
 
-                        <tr>
-                            <td colspan="6">
-                                No investigations recorded yet.
-                            </td>
-                        </tr>
+    <tr>
+        <td colspan="6">
+            No investigations recorded yet.
+        </td>
+    </tr>
 
-                        {% endfor %}
+    {% endfor %}
 
-                    </tbody>
+</tbody>
 
                 </table>
 

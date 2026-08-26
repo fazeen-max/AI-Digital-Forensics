@@ -578,3 +578,43 @@ tr:hover {
     background: #1c232b;
     box-shadow: inset 3px 0 0 #ffffff;
 }
+/* Investigation History */
+
+.history-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.history-table tbody tr:hover {
+    background: #171d24;
+    transform: translateX(3px);
+}
+
+.history-file {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.history-date {
+    color: #9aa3ad;
+    font-size: 13px;
+}
+
+.history-count {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.history-normal {
+    color: #6fcf97;
+    font-weight: 600;
+}
+
+.history-suspicious {
+    color: #f2c94c;
+    font-weight: 600;
+}
+
+.history-malicious {
+    color: #eb5757;
+    font-weight: 600;
+}
