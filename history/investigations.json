@@ -46,5 +46,37 @@
         "normal": 3,
         "suspicious": 7,
         "malicious": 0
+    },
+    {
+        "filename": "security_logs.csv",
+        "date": "2026-08-24 21:00:07",
+        "total_events": 10,
+        "normal": 3,
+        "suspicious": 7,
+        "malicious": 0
+    },
+    {
+        "filename": "security_logs.csv",
+        "date": "2026-08-24 21:02:49",
+        "total_events": 10,
+        "normal": 3,
+        "suspicious": 7,
+        "malicious": 0
+    },
+    {
+        "filename": "security_logs.csv",
+        "date": "2026-08-24 21:03:41",
+        "total_events": 10,
+        "normal": 3,
+        "suspicious": 7,
+        "malicious": 0
+    },
+    {
+        "filename": "security_logs.csv",
+        "date": "2026-08-24 21:04:49",
+        "total_events": 10,
+        "normal": 3,
+        "suspicious": 7,
+        "malicious": 0
     }
 ]

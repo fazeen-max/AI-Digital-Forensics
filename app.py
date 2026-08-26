@@ -27,26 +27,40 @@ app.secret_key = "ai-digital-forensics-secret-key"
 
 @app.route("/")
 def dashboard():
-    logs, model = load_data()
-    events = analyze_events(logs, model)
+
+    report_data = session.get("report_data")
+
+    if report_data:
+
+        events = report_data["events"]
+
+    else:
+
+        logs, model = load_data()
+        analyzed_events = analyze_events(logs, model)
+
+        events = analyzed_events.to_dict("records")
 
     total_events = len(events)
 
-    normal_count = (
-        events["final_threat"] == "NORMAL"
-    ).sum()
+    normal_count = sum(
+        1 for event in events
+        if event["final_threat"] == "NORMAL"
+    )
 
-    suspicious_count = (
-        events["final_threat"] == "SUSPICIOUS"
-    ).sum()
+    suspicious_count = sum(
+        1 for event in events
+        if event["final_threat"] == "SUSPICIOUS"
+    )
 
-    malicious_count = (
-        events["final_threat"] == "MALICIOUS"
-    ).sum()
+    malicious_count = sum(
+        1 for event in events
+        if event["final_threat"] == "MALICIOUS"
+    )
 
     return render_template(
         "dashboard.html",
-        events=events.to_dict("records"),
+        events=events,
         total_events=total_events,
         normal_count=normal_count,
         suspicious_count=suspicious_count,
