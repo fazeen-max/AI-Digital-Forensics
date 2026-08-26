@@ -12,7 +12,11 @@
     >
 </head>
 
-<body>
+<body
+    data-normal="{{ normal_count }}"
+    data-suspicious="{{ suspicious_count }}"
+    data-malicious="{{ malicious_count }}"
+>
 
     <div class="sidebar">
 
@@ -94,32 +98,33 @@
 
     <div class="threat-meter">
 
-        <div class="meter-normal"></div>
+    <div class="meter-normal"></div>
 
-        <div class="meter-suspicious"></div>
+    <div class="meter-suspicious"></div>
 
-        <div class="meter-malicious"></div>
+    <div class="meter-malicious"></div>
 
-    </div>
+</div>
+
+    
 
 
     <div class="threat-legend">
 
-        <div class="legend-item">
-            <span class="legend-dot normal-dot"></span>
-            Normal — {{ normal_count }}
-        </div>
+       <div class="legend-item">
+    <span class="legend-dot normal-dot"></span>
+    Normal — {{ normal_count }} ({{ normal_percentage }}%)
+</div>
 
-        <div class="legend-item">
-            <span class="legend-dot suspicious-dot"></span>
-            Suspicious — {{ suspicious_count }}
-        </div>
+<div class="legend-item">
+    <span class="legend-dot suspicious-dot"></span>
+    Suspicious — {{ suspicious_count }} ({{ suspicious_percentage }}%)
+</div>
 
-        <div class="legend-item">
-            <span class="legend-dot malicious-dot"></span>
-            Malicious — {{ malicious_count }}
-        </div>
-
+<div class="legend-item">
+    <span class="legend-dot malicious-dot"></span>
+    Malicious — {{ malicious_count }} ({{ malicious_percentage }}%)
+</div>
     </div>
 
 </div>

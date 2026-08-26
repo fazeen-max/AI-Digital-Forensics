@@ -57,15 +57,40 @@ def dashboard():
         1 for event in events
         if event["final_threat"] == "MALICIOUS"
     )
+    if total_events > 0:
+
+        normal_percentage = round(
+            normal_count / total_events * 100,
+            1
+        )
+
+        suspicious_percentage = round(
+            suspicious_count / total_events * 100,
+            1
+        )
+
+        malicious_percentage = round(
+            malicious_count / total_events * 100,
+            1
+        )
+
+    else:
+
+        normal_percentage = 0
+        suspicious_percentage = 0
+        malicious_percentage = 0
 
     return render_template(
-        "dashboard.html",
-        events=events,
-        total_events=total_events,
-        normal_count=normal_count,
-        suspicious_count=suspicious_count,
-        malicious_count=malicious_count
-    )
+    "dashboard.html",
+    events=events,
+    total_events=total_events,
+    normal_count=normal_count,
+    suspicious_count=suspicious_count,
+    malicious_count=malicious_count,
+    normal_percentage=normal_percentage,
+    suspicious_percentage=suspicious_percentage,
+    malicious_percentage=malicious_percentage
+)
 @app.route("/upload")
 def upload_page():
     return render_template("upload.html")
