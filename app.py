@@ -142,6 +142,40 @@ def history_page():
         "history.html",
         history=history
     )
+@app.route("/report/preview")
+def report_preview():
+
+    report_data = session.get("report_data")
+
+    if not report_data:
+        return "No investigation report available. Please analyze evidence first."
+
+    events = report_data["events"]
+
+    normal_count = sum(
+        1 for event in events
+        if event["final_threat"] == "NORMAL"
+    )
+
+    suspicious_count = sum(
+        1 for event in events
+        if event["final_threat"] == "SUSPICIOUS"
+    )
+
+    malicious_count = sum(
+        1 for event in events
+        if event["final_threat"] == "MALICIOUS"
+    )
+
+    return render_template(
+        "report.html",
+        filename=report_data["filename"],
+        events=events,
+        total_events=len(events),
+        normal_count=normal_count,
+        suspicious_count=suspicious_count,
+        malicious_count=malicious_count
+    )
 @app.route("/report")
 def report_page():
 
